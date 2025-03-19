@@ -1,0 +1,30 @@
+<div class="modal fade" id="addChapterModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" action="/add_chapter">
+        <div class="modal-header">
+          <h5 class="modal-title">Добавить главу</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="grade_id" id="gradeIdInput">
+          <div class="mb-3">
+            <label class="form-label">Название главы:</label>
+            <input type="text" class="form-control" name="title" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+          <button type="submit" class="btn btn-primary">Добавить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('addChapterModal').addEventListener('show.bs.modal', function(event) {
+  const button = event.relatedTarget;
+  document.getElementById('gradeIdInput').value = button.getAttribute('data-grade-id');
+});
+</script>

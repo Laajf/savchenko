@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Добавить задачу{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="fas fa-plus-circle"></i> Добавить задачу</h4>
+            </div>
+
+            <div class="card-body">
+                {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
+
+                <form method="post">
+                    <div class="mb-3">
+                        <label class="form-label"></label>
+                        <input type="text"
+                               class="form-control"
+                               name="grade"
+                               value="{{ grade }}"
+                               required
+                               placeholder="Пример: 7">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Раздел</label>
+                        <input type="text"
+                               class="form-control"
+                               name="chapter"
+                               value="{{ chapter }}"
+                               required
+                               placeholder="Пример: Основные понятия геометрии">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">Номер задачи</label>
+                        <input type="text"
+                               class="form-control"
+                               name="number"
+                               required
+                               placeholder="Пример: 15.3">
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-save"></i> Сохранить задачу
+                        </button>
+                        <a href="/" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left"></i> На главную
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

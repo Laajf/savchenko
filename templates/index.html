@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        {% if not user %}
+        <div class="card shadow-sm mb-4 welcome-card">
+            <div class="card-body text-center py-4">
+                <h4 class="text-muted mb-3">👋 Добро пожаловать в Решебник!</h4>
+                <p class="lead mb-4">
+                    Получайте доступ ко всем решениям и делитесь своими ответами.<br>
+                    Быстрая регистрация за 30 секунд!
+                </p>
+                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                    <a href="/register" class="btn btn-success btn-lg px-4">
+                        <i class="fas fa-user-plus me-2"></i>Создать аккаунт
+                    </a>
+                    <a href="/login" class="btn btn-outline-secondary btn-lg px-4">
+                        <i class="fas fa-sign-in-alt me-2"></i>Войти
+                    </a>
+                </div>
+                <p class="text-muted mt-4 small">
+                    После регистрации вы сможете:
+                    <span class="d-block mt-2">
+                        <i class="fas fa-check-circle text-success me-1"></i>Просматривать решения
+                        <i class="fas fa-check-circle text-success mx-3"></i>Загружать ответы
+                        <i class="fas fa-check-circle text-success"></i>Комментировать
+                    </span>
+                </p>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if problems %}
+            {% for grade, chapters in problems.items() %}
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center py-3">
+                    <h4 class="mb-0">{{ grade }} </h4>
+                    {% if user %}
+                    <div class="d-flex gap-2">
+                        <a href="/add-problem?grade={{ grade }}"
+                           class="btn btn-light btn-sm"
+                           title="Добавить новый раздел">
+                            <i class="fas fa-plus"></i> Раздел
+                        </a>
+                        <a href="/add-problem?grade={{ grade }}"
+                           class="btn btn-light btn-sm"
+                           title="Добавить задачу">
+                            <i class="fas fa-plus"></i> Задачу
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="card-body">
+                    {% for chapter, numbers in chapters.items() %}
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="text-primary">{{ chapter }}</h5>
+                            {% if user %}
+                            <a href="/add-problem?grade={{ grade }}&chapter={{ chapter|urlencode }}"
+                               class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                        <div class="d-flex flex-wrap gap-2">
+                            {% for number in numbers|sort %}
+                            <a href="/problem/{{ grade }}-{{ chapter|replace(' ', '_') }}-{{ number }}"
+                               class="btn btn-outline-primary rounded-pill">
+                                №{{ number }}
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="card shadow-sm">
+                <div class="card-body text-center py-5">
+                    <h4 class="text-muted mb-4">Пока нет добавленных задач</h4>
+                    {% if user %}
+                    <a href="/add-problem" class="btn btn-primary btn-lg">
+                        <i class="fas fa-plus"></i> Создать первый раздел
+                    </a>
+                    {% else %}
+                    <div class="alert alert-info">
+                        Войдите, чтобы начать добавлять задачи
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
