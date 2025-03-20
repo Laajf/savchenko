@@ -25,6 +25,7 @@
    ```
 3. Запустите проект:
    ```bash
+   docker-compose build --no-cache
    docker-compose up
    ```
 4. Откройте браузер и перейдите по адресу: [http://localhost:8000](http://localhost:8000).
