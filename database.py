@@ -41,7 +41,7 @@ def init_db():
         if not db.query(Problem).first():
             problem = Problem(
                 grade="Савченко 3е издание",
-                chapter="Начальные геометрические понятия",
+                chapter="Движение с постоянной скоростью",
                 number="1"
             )
             db.add(problem)

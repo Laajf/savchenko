@@ -1,0 +1,11 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"  # Проброс порта
+    volumes:
+      - ./static/uploads:/app/static/uploads
+      - ./database.db:/app/database.db
+    environment:
+      - SECRET_KEY=your-secret-key-32-chars-long
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]  # Явное указание хоста

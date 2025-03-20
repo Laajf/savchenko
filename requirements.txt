@@ -1,7 +1,8 @@
-fastapi==0.68.1
-uvicorn==0.15.0
-sqlalchemy==1.4.46
-passlib==1.7.4
-python-multipart==0.0.5
-jinja2==3.1.2
-starlette==0.14.2
+fastapi>=0.68.0
+uvicorn>=0.15.0
+sqlalchemy>=1.4.0
+passlib>=1.7.4
+python-multipart>=0.0.5
+jinja2>=3.0.0
+python-dotenv>=0.19.0
+itsdangerous>=2.1.2
