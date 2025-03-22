@@ -2,6 +2,7 @@ from sqlalchemy import create_engine, Column, Integer, String, Text, ForeignKey,
 from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 from passlib.context import CryptContext
 from datetime import datetime
+import os
 
 Base = declarative_base()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -31,7 +32,13 @@ class Solution(Base):
     author = relationship("User", back_populates="solutions")
     problem = relationship("Problem", back_populates="solutions")
 
-engine = create_engine("sqlite:///database.db")
+# Проверяем существование файла базы данных
+db_path = "database.db"
+if not os.path.exists(db_path):
+    print("База данных не найдена, создаем новую...")
+    open(db_path, 'w').close()  # Создаем пустой файл
+
+engine = create_engine(f"sqlite:///{db_path}")
 Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 
@@ -46,8 +53,10 @@ def init_db():
             )
             db.add(problem)
             db.commit()
+            print("✅ Начальные данные успешно добавлены")
     except Exception as e:
-        print(f"Ошибка инициализации БД: {e}")
+        print(f"❌ Ошибка инициализации БД: {e}")
+        db.rollback()
     finally:
         db.close()
 
